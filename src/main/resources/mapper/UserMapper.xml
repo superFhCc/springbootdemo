@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.UserMapper">
+	<resultMap type="com.model.User" id="users">
+		<result column="ID" property="id"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="USERNAME" property="username"/>
+		<result column="PASSWORD" property="password"/>
+		<result column="MOBILE" property="mobile"/>
+		<result column="SEX" property="sex"/>
+		<result column="BIRTHDAY" property="birthday" />
+		<result column="CITY" property="city"/>
+		<result column="ROLE_ID" property="roleId"/>
+		<result column="ROLE_NAME" property="roleName"/>
+		<result column="REAL_NAME" property="realName"/>
+		<result column="AGE" property="age"/>
+	</resultMap>
+
+	<select id="getByMobileAndPwd" resultMap="users">
+	   select 
+            *
+       from 
+            ns_user 
+       where 
+            mobile=#{param1} 
+       and 
+            password=#{param2}
+	</select>
+
+    <select id="getUserByMobile" resultMap="users">
+        select
+            u.user_id ,
+            u.username ,
+            u.password ,
+            u.mobile ,
+            u.sex ,
+            u.role_id,
+            to_char(u.birthday,'yyyy-MM-dd') ,
+            u.city
+        from 
+            ns_user u
+        where 
+            u.mobile = #{param1}
+    </select>
+
+    <select id="getUserNameAndPassword" resultMap="users">
+       select
+            *
+       from
+            ns_user
+       where
+            username=#{param1}
+       and
+            password=#{param2}
+    </select>
+
+ </mapper>
